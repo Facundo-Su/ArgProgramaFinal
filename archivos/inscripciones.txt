@@ -1,0 +1,5 @@
+santiago/programacion2
+franco/analisis Matematico1
+federico/programacion2
+federico/probabilidad
+juan/gestion de datos
