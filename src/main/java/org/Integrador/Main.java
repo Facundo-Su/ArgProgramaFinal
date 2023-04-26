@@ -26,8 +26,6 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
-        List<Materia> materias= conexion.traerDatosMaterias();
-        List<Alumno> alumnos=conexion.traerDatosAlumno();
         do {
             System.out.println("==== MENÚ ====");
             System.out.println("1. agregar alumnos a base de datos");
@@ -46,6 +44,8 @@ public class Main {
                     conexion.crearMateria();
                     break;
                 case 3:
+                    List<Materia> materias= conexion.traerDatosMaterias();
+                    List<Alumno> alumnos=conexion.traerDatosAlumno();
                     inscripcion(alumnos,materias);
                     break;
                 case 4:

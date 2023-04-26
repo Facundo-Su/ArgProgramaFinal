@@ -185,11 +185,11 @@ public class Conexion {
         System.out.println("Cuantas materias desea agregar a las correlativas?");
         int numero = sc.nextInt();
 
-        System.out.println("Que materias desea agregar a las correlativas?");
         ArrayList<String> correlativas = new ArrayList<>();
 
         String input;
         for (int i = 0; i < numero; i++) {
+            System.out.println("Que materias desea agregar a las correlativas?");
             input = sc.next();
             correlativas.add(input);
         }
