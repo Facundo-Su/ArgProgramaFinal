@@ -162,6 +162,7 @@ public class Conexion {
             }
 
 
+
             alumno.setMateriasAprobadas(lista);
 
             listaAlumno.add(alumno);
