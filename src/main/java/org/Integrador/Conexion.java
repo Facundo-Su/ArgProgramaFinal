@@ -44,21 +44,34 @@ public class Conexion {
     }
 
     public void insertarAlumnos() throws SQLException{
+
         try {
             Alumno alumno = new Alumno();
             String nombre;
-            String legajo;
+            int legajo;
+
 
             System.out.println("ingrese el nombre de alumno");
-            nombre=entrada.next();
+            nombre=entrada.nextLine();
             alumno.setNombre(nombre);
-            do {
+            boolean esValido = false;
 
+            while (!esValido) {
+                try {
+                    System.out.println("Ingrese un número entero de al menos 5 dígitos:");
+                    String input = entrada.next();
 
-            System.out.println("ingrese el legajo del alumno (con al meno 5 digito)");
-            legajo = entrada.next();
-            alumno.setLegajo(legajo);
-            }while (!legajo.matches("\\d{5,}"));
+                    // Validar que la entrada contenga solo números y tenga al menos 5 dígitos
+                    if (input.matches("\\d{5,}")) {
+                        alumno.setLegajo(Integer.parseInt(input));
+                        esValido = true;
+                    } else {
+                        System.out.println("Error: debe ingresar un número entero de al menos 5 dígitos.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: debe ingresar un número entero de al menos 5 dígitos.");
+                }
+            }
 
             System.out.println("ingrese cuanta materia tiene aprobado");
             int cantidad=entrada.nextInt();
@@ -76,7 +89,7 @@ public class Conexion {
             String correlativasJson = new Gson().toJson(materiaAprobado);
             this.estableceConexion();
             Statement stmt = this.conectar.createStatement();
-            stmt.executeUpdate("INSERT INTO alumnos VALUES ('" + nombre + "', '" + legajo + "', '" + correlativasJson + "')");
+            stmt.executeUpdate("INSERT INTO alumnos VALUES ('" + nombre + "', '" + alumno.getLegajo() + "', '" + correlativasJson + "')");
             this.cerrarConection();
 
 
@@ -149,7 +162,7 @@ public class Conexion {
 
         while (rs.next()) {
 
-            alumno = new Alumno(rs.getString("nombre"), rs.getString("legajo"));
+            alumno = new Alumno(rs.getString("nombre"), rs.getInt("legajo"));
 
             String jsonText = objectMapper.writeValueAsString(rs.getString("correlativa"));
 
@@ -160,7 +173,6 @@ public class Conexion {
                 Gson gson = new Gson();
                 lista = gson.fromJson(valor, ArrayList.class);
             }
-
 
 
             alumno.setMateriasAprobadas(lista);
@@ -180,18 +192,18 @@ public class Conexion {
 
         Materia materia = new Materia();
         System.out.println("Que nombre quiere que tenga la materia?");
-        String nombre = sc.next();
+        String nombre = sc.nextLine();
         materia.setNombre(nombre);
 
         System.out.println("Cuantas materias desea agregar a las correlativas?");
         int numero = sc.nextInt();
 
+        System.out.println("Que materias desea agregar a las correlativas?");
         ArrayList<String> correlativas = new ArrayList<>();
 
         String input;
         for (int i = 0; i < numero; i++) {
-            System.out.println("Que materias desea agregar a las correlativas?");
-            input = sc.next();
+            input = sc.nextLine();
             correlativas.add(input);
         }
         String correlativasJson = new Gson().toJson(correlativas);

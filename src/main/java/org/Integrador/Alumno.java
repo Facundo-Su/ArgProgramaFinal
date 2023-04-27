@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Alumno {
     private String nombre;
-    private String legajo;
+    private int legajo;
     private ArrayList<String> materiasAprobadas;
 
-    public Alumno(String nombre, String legajo) {
+    public Alumno(String nombre, int legajo) {
         this.nombre = nombre;
         this.legajo = legajo;
     }
@@ -24,11 +24,11 @@ public class Alumno {
         this.nombre = nombre;
     }
 
-    public String getLegajo() {
+    public int getLegajo() {
         return legajo;
     }
 
-    public void setLegajo(String legajo) {
+    public void setLegajo(int legajo) {
         this.legajo = legajo;
     }
 
